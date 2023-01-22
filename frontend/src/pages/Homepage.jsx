@@ -8,6 +8,8 @@ import { Pagination } from '../components/Pagination'
 
 export const Homepage = () => {
 
+
+
     const [data,setData] = useState([])
     const [isLoading,setIsLoading] = useState(true)
 
@@ -20,10 +22,12 @@ export const Homepage = () => {
     const limit = 10;
     const [page,setPage] = useState(1)
 
-    const getData = async () => {
 
+
+    const getData = async () => {
+        setIsLoading(true)
         try {
-            const res = await fetch(`http://localhost:8080/category/capsules?limit=${limit}&page=${page}&status=${status}&type=${type}`)
+            const res = await fetch(`https://spacex-pc30.onrender.com/category/capsules?limit=${limit}&page=${page}&status=${status}&type=${type}`)
             const data = await res.json()
             setData(data.data)
             setIsLoading(false)
@@ -35,7 +39,9 @@ export const Homepage = () => {
     
     }
 
+
     useEffect(() => {
+
 
         getData()
 
@@ -57,6 +63,7 @@ export const Homepage = () => {
             setIsLoading={setIsLoading} 
             setNoOfPage={setNoOfPage}
             getData={getData}
+            setPage={setPage}
         />
         <DataGrid 
             data={data} 
@@ -67,6 +74,7 @@ export const Homepage = () => {
             noOfPages={noOfPages} 
             isLoading={isLoading} 
             setPage={setPage} 
+            page={page}
         />
     </Box>
   )
